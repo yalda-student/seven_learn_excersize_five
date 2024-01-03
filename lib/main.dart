@@ -88,23 +88,7 @@ class _MainScreenState extends State<MainScreen> {
         body: Stack(
           children: [
             Positioned.fill(
-                child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: ExactAssetImage(currentAudioFile.cover),
-                ),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: 30,
-                  sigmaY: 30,
-                ),
-                child: Container(
-                  color: Colors.black26,
-                ),
-              ),
-            )),
+                child: _BlurBackground(currentAudioFile: currentAudioFile)),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
               child: Column(
@@ -215,9 +199,7 @@ class _MainScreenState extends State<MainScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                          onPressed: () {
-                            _playPreviousMusic();
-                          },
+                          onPressed: () => _playPreviousMusic(),
                           icon: const Icon(
                             Icons.fast_rewind_rounded,
                             color: Colors.white,
@@ -247,7 +229,6 @@ class _MainScreenState extends State<MainScreen> {
                             if (newPosition >= duration!.inMilliseconds) {
                               newPosition = duration!.inMilliseconds - 1000;
                             }
-
                             audioPlayer
                                 .seek(Duration(milliseconds: newPosition));
                           },
@@ -256,9 +237,7 @@ class _MainScreenState extends State<MainScreen> {
                             color: Colors.white,
                           )),
                       IconButton(
-                          onPressed: () {
-                            _playNextMusic();
-                          },
+                          onPressed: () => _playNextMusic(),
                           icon: const Icon(
                             Icons.fast_forward_rounded,
                             color: Colors.white,
@@ -286,6 +265,35 @@ class _MainScreenState extends State<MainScreen> {
     index %= playList.length;
     currentAudioFile = playList[index];
     audioPlayer.setAudioSource(AudioSource.asset(currentAudioFile.audioPath));
+  }
+}
+
+class _BlurBackground extends StatelessWidget {
+  const _BlurBackground({
+    required this.currentAudioFile,
+  });
+
+  final AudioFile currentAudioFile;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: ExactAssetImage(currentAudioFile.cover),
+        ),
+      ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 30,
+          sigmaY: 30,
+        ),
+        child: Container(
+          color: Colors.black26,
+        ),
+      ),
+    );
   }
 }
 
