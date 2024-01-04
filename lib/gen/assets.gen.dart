@@ -12,6 +12,9 @@ import 'package:flutter/widgets.dart';
 class $AssetAudioGen {
   const $AssetAudioGen();
 
+  /// File path: asset/audio/Asemane Abri.mp3
+  String get asemaneAbri => 'asset/audio/Asemane Abri.mp3';
+
   /// File path: asset/audio/Darandasht.mp3
   String get darandasht => 'asset/audio/Darandasht.mp3';
 
@@ -19,7 +22,7 @@ class $AssetAudioGen {
   String get kavir => 'asset/audio/Kavir.mp3';
 
   /// List of all assets
-  List<String> get values => [darandasht, kavir];
+  List<String> get values => [asemaneAbri, darandasht, kavir];
 }
 
 class $AssetImageGen {
@@ -32,11 +35,15 @@ class $AssetImageGen {
   /// File path: asset/image/Kavir.jpeg
   AssetGenImage get kavir => const AssetGenImage('asset/image/Kavir.jpeg');
 
+  /// File path: asset/image/aseman abri.jpeg
+  AssetGenImage get asemanAbri =>
+      const AssetGenImage('asset/image/aseman abri.jpeg');
+
   /// File path: asset/image/profile.jpg
   AssetGenImage get profile => const AssetGenImage('asset/image/profile.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [darandasht, kavir, profile];
+  List<AssetGenImage> get values => [darandasht, kavir, asemanAbri, profile];
 }
 
 class Assets {

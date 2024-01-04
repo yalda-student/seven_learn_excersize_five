@@ -24,6 +24,11 @@ List playList = <AudioFile>[
       cover: Assets.image.kavir.path,
       name: 'Kavir',
       artist: 'Mohsen Yeganeh'),
+  AudioFile(
+      audioPath: Assets.audio.asemaneAbri,
+      cover: Assets.image.asemanAbri.path,
+      name: 'Aseman abri',
+      artist: 'Homayoun Shajarian'),
 ];
 
 class MyApp extends StatelessWidget {
@@ -31,13 +36,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Music Player',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MainScreen(),
+      home: MainScreen(),
     );
   }
 }
@@ -66,9 +68,8 @@ class _MainScreenState extends State<MainScreen> {
         .then((value) {
       duration = value;
       audioPlayer.play();
-      timer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
-        setState(() {});
-      });
+      timer = Timer.periodic(
+          const Duration(milliseconds: 200), (timer) => setState(() {}));
       setState(() {});
     });
 
@@ -210,6 +211,7 @@ class _MainScreenState extends State<MainScreen> {
 
                             int newPosition =
                                 currentPosition.inMilliseconds - seekingValue;
+                            //handing negative position
                             if (newPosition < 0) {
                               newPosition = 0;
                             }
@@ -226,6 +228,7 @@ class _MainScreenState extends State<MainScreen> {
                             final currentPosition = audioPlayer.position;
                             int newPosition =
                                 currentPosition.inMilliseconds + seekingValue;
+                            //newPosition should not be more than audio duration
                             if (newPosition >= duration!.inMilliseconds) {
                               newPosition = duration!.inMilliseconds - 1000;
                             }
@@ -269,9 +272,7 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class _BlurBackground extends StatelessWidget {
-  const _BlurBackground({
-    required this.currentAudioFile,
-  });
+  const _BlurBackground({required this.currentAudioFile});
 
   final AudioFile currentAudioFile;
 
@@ -298,9 +299,7 @@ class _BlurBackground extends StatelessWidget {
 }
 
 class _PlayButton extends StatelessWidget {
-  const _PlayButton({
-    required this.audioPlayer,
-  });
+  const _PlayButton({required this.audioPlayer});
 
   final AudioPlayer audioPlayer;
 
